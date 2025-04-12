@@ -1,0 +1,250 @@
+<resources>
+
+    <string name="app_name">My Calgary Suggestions</string>
+
+    <string name="my_category_screen">My Category Screen</string>
+
+    <string name="my_recommendation_screen">My Recommendation Screen</string>
+
+    <string name="back_button">Back Button</string>
+    <!-- Here I have gathered string content for the My Calgary Suggestions -->
+
+    <string name="cancel">Cancel</string>
+
+    <string name="next">Next</string>
+
+    <string name="submit">Submit</string>
+
+    <!-- Categories -->
+    <string name="default_category">No Category</string>
+    <string name="pubs_and_cafes">Pubs and Caf\u00e9s</string>
+    <string name="dispensaries">Dispensaries</string>
+    <string name="coffee_shops">Coffee Shops</string>
+    <string name="pho_restaurants">Pho Restaurants</string>
+
+    <string name="default_recommendation">No Recommendation</string>
+    <!-- Pubs and Cafés -->
+
+    <!-- Courtyard -->
+    <string name="courtyard_name">Courtyard Pub</string>
+    <string name="courtyard_rating">4/5</string>
+    <string name="courtyard_description">
+        A bar located in Calgary, Alberta, known for its lively atmosphere and diverse menu.
+    </string>
+    <string name="courtyard_address">723 Edmonton Trail NE</string>
+
+    <!-- Hose and Hound -->
+    <string name="hose_and_hound_name">Hose and Hound Pub</string>
+    <string name="hose_and_hound_rating">4/5</string>
+    <string name="hose_and_hound_description">
+        Located in a 1906 Firehouse in trendy Inglewood, this bar and grill offers a wide variety of fun beverages, big TVs and comfort eats! Come with your friends and enjoy the atmosphere.
+    </string>
+    <string name="hose_and_hound_address">1030 9 Ave SE</string>
+
+    <!-- Garrison -->
+    <string name="garrison_name">The Garrison Pub and Eatery</string>
+    <string name="garrison_rating">4/5</string>
+    <string name="garrison_description">
+        Indoor dining  will be open Monday-Thursday 11:30am-Late \u0026 Friday \u0026 Saturday 11:00am-Late Sunday 11am-Late! Please check out instagram \u0026 facebook for daily specials.
+    </string>
+    <string name="garrison_address">2040 42 Ave SW</string>
+
+    <!-- Mugshotz -->
+    <string name="mugshotz_name">Mugshotz Sports Bar and Grill</string>
+    <string name="mugshotz_rating">4/5</string>
+    <string name="mugshotz_description">
+        Wings are great and service was good.
+    </string>
+    <string name="mugshotz_address">2808 Ogden Rd SE</string>
+
+    <!-- Bella Roma -->
+    <string name="bella_roma_name">Bella Roma Pizza and Steak House</string>
+    <string name="bella_roma_rating">4/5</string>
+    <string name="bella_roma_description">
+        Serving Lakeview and area for over 39 years. Our caring and committed staff will ensure you have a fantastic experience with us.
+    </string>
+    <string name="bella_roma_address">6449 Crowchild Trail SW</string>
+
+    <!-- Cadence Cafe -->
+    <string name="cadence_name">Cadence Cafe</string>
+    <string name="cadence_rating">4/5</string>
+    <string name="cadence_description">
+        Cadence Coffee is a 21st century diner located in the heart of Bowness, where friends meet to enjoy great food, superfine coffee, and fresh baking.
+    </string>
+    <string name="cadence_address">6407 Bowness Road NW</string>
+
+    <!-- Red's Diner -->
+    <string name="reds_name">Red\u0027s Diner</string>
+    <string name="reds_rating">4/5</string>
+    <string name="reds_description">
+        We\u0027re known for our service with a sunny smile, warm, comfortable interiors, and delicious food crafted from scratch with farm-fresh ingredients. It\u0027s no wonder our customers say we make the best breakfast in Calgary.
+    </string>
+    <string name="reds_address">6407 Bowness Road NW</string>
+
+    <!-- Dispensaires -->
+
+    <!-- Fivepoint Cannabis Bridgeland -->
+    <string name="fivepoint_cannabis_bridgeland_name">Fivepoint Cannabis Bridgeland</string>
+    <string name="fivepoint_cannabis_bridgeland_rating">4/5</string>
+    <string name="fivepoint_cannabis_bridgeland_description">
+        A local cannabis shop in an art gallery.
+    </string>
+    <string name="fivepoint_cannabis_bridgeland_address">945 General Ave NE</string>
+
+    <!-- Fivepoint Cannabis First Street -->
+    <string name="fivepoint_cannabis_first_street_name">Fivepoint Cannabis 1st Street</string>
+    <string name="fivepoint_cannabis_first_street_rating">4/5</string>
+    <string name="fivepoint_cannabis_first_street_description">
+        A local cannabis shop in an art gallery.
+    </string>
+    <string name="fivepoint_cannabis_first_street_address">1318 1st Street SW</string>
+
+    <!-- SpiritLeaf Centre Street N -->
+    <string name="spiritleaf_name">SpiritLeaf Centre Street N</string>
+    <string name="spiritleaf_rating">4/5</string>
+    <string name="spiritleaf_description">
+        Spiritleaf aims to be the most knowledgeable and trusted source of recreational cannabis.
+    </string>
+    <string name="spiritleaf_address">1020 Centre St NE</string>
+
+    <!-- Mt Kushmore -->
+    <string name="mtkushmore_name">Mt. Kushmore</string>
+    <string name="mtkushmore_rating">4/5</string>
+    <string name="mtkushmore_description">
+        Welcome to your cannabis destination, where quality meets great customer service.
+    </string>
+    <string name="mtkushmore_address">329 11 Avenue NE</string>
+
+    <!-- Four20 (Inglewood) -->
+    <string name="four20_name">Four20 Inglewood Cannabis</string>
+    <string name="four20_rating">4/5</string>
+    <string name="four20_description">
+        Supporting legal cannabis  is supporting Canada.
+    </string>
+    <string name="four20_address">1309 9 Ave SE</string>
+
+    <!-- Bud Bar Cannabis 10 St NW -->
+    <string name="budbar_name">Bud Bar</string>
+    <string name="budbar_rating">4/5</string>
+    <string name="budbar_description">
+        Come shop for the best weed deals in Calgary.
+    </string>
+    <string name="budbar_address">1717 10 St NW</string>
+
+    <!-- Coffee Shops -->
+
+    <!-- Phil & Sebastians Bridgeland -->
+    <string name="philsebastian_name">Phil \u0026 Sebastian</string>
+    <string name="philsebastian_rating">4/5</string>
+    <string name="philsebastian_description">
+        The standard for coffee is too low. We\u0027re Here to Raise the Bar
+    </string>
+    <string name="philsebastian_address">69 7a Street NE</string>
+
+    <!-- Bono Coffee Roasters -->
+    <string name="bono_name">Bono Coffee Roasters</string>
+    <string name="bono_rating">4/5</string>
+    <string name="bono_description">
+        At Bono Coffee, we are committed in developing exceptional specialty coffee.
+    </string>
+    <string name="bono_address">733 1 Ave NE</string>
+
+    <!-- Sought x Found -->
+    <string name="soughtxfound_name">Sought x Found</string>
+    <string name="soughtxfound_rating">4/5</string>
+    <string name="soughtxfound_description">
+        We are a local coffee shop and roaster in Calgary, which started out of a passion for coffee, a very small dream, and just a tiny bit of courage.
+    </string>
+    <string name="soughtxfound_address">916 Centre Street NE</string>
+
+    <!-- Stoop Cafe -->
+    <string name="stoop_name">Stoop Cafe</string>
+    <string name="stoop_rating">4/5</string>
+    <string name="stoop_description">
+        Specializes in serving up espresso-style coffees and house-made sandwiches.
+    </string>
+    <string name="stoop_address">1027 Russet Road NE</string>
+
+    <!-- Rosso Coffee Roasters -->
+    <string name="rosso_name">Rosso Coffee Roasters</string>
+    <string name="rosso_rating">4/5</string>
+    <string name="rosso_description">
+        In the service of others, we have found so much. Great partners, better coffee, and rich flavours of joy. Let us fill your cup.
+    </string>
+    <string name="rosso_address">1402 9 Ave SE</string>
+
+    <!-- Analog Coffee -->
+    <string name="analog_name">Analog Coffee</string>
+    <string name="analog_rating">4/5</string>
+    <string name="analog_description">
+        Analog was founded with the view that every cup of coffee poured should be something special, and that \u0027good enough\u0027, is never good enough.
+    </string>
+    <string name="analog_address">1139 9th Avenue SE</string>
+
+    <!-- Bridge 15 Cafe -->
+    <string name="bridge_name">Bridge 15 Cafe</string>
+    <string name="bridge_rating">4/5</string>
+    <string name="bridge_description">
+        A cup of gourmet coffee shared with a friend is happiness tasted and time well spent.
+    </string>
+    <string name="bridge_address">204 7a St NE</string>
+
+    <!-- Pho Restaurants -->
+
+    <!-- Pho Kim Restaurant -->
+    <string name="pho_kim_name">Pho Kim Restaurant</string>
+    <string name="pho_kim_rating">4/5</string>
+    <string name="pho_kim_description">
+        Vietnamese Cuisine
+    </string>
+    <string name="pho_kim_address">1511 Centre B Street NW</string>
+
+    <!-- Van Son Vietnamese Cuisine -->
+    <string name="van_son_name">Van Son Vietnamese Cuisine</string>
+    <string name="van_son_rating">4/5</string>
+    <string name="van_son_description">
+        You can expect the ultimate dining experience here.
+    </string>
+    <string name="van_son_address">308 16th Ave NW</string>
+
+    <!-- Golden Bell -->
+    <string name="golden_bell_name">Golden Bell</string>
+    <string name="golden_bell_rating">4/5</string>
+    <string name="golden_bell_description">
+        Gluten friendly. Sliced beef in a spicy sate  peanut broth.
+    </string>
+    <string name="golden_bell_address">920 1 Ave NE</string>
+
+    <!-- Minh Chau -->
+    <string name="minh_chau_name">Minh Chau Vietnamese Restaurant</string>
+    <string name="minh_chau_rating">4/5</string>
+    <string name="minh_chau_description">
+        Pho Minh Chau Vietnamese welcomes you to their dining room. Come experience their family friendly and casual surrounding.
+    </string>
+    <string name="minh_chau_address">1818 9 Ave SE</string>
+
+    <!-- Pho Hoai -->
+    <string name="pho_hoai_name">Pho Hoai Vietnamese Noodle House</string>
+    <string name="pho_hoai_rating">4/5</string>
+    <string name="pho_hoai_description">
+        Welcome to Pho Hoai, Calgary\u0027s premier destination for authentic Vietnamese cuisine.
+    </string>
+    <string name="pho_hoai_address">132 3 Ave SE</string>
+
+    <!-- Bagolac Saigon -->
+    <string name="bagolac_name">Bagolac Saigon Restaurant</string>
+    <string name="bagolac_rating">4/5</string>
+    <string name="bagolac_description">
+        Bagolac Saigon has been a premiere Vietnamese and Thai Restaurant in Calgary since 1999.
+    </string>
+    <string name="bagolac_address">6130 1a St SW</string>
+
+    <!-- Noodle King -->
+    <string name="noodle_king_name">Noodle King Vietnamese Restaurant</string>
+    <string name="noodle_king_rating">4/5</string>
+    <string name="noodle_king_description">
+        Noodle King Vietnamese Restaurant LTD is a renowned brand in the culinary industry, serving exquisite Vietnamese cuisine.
+    </string>
+    <string name="noodle_king_address">32 Ave NE</string>
+
+</resources>
