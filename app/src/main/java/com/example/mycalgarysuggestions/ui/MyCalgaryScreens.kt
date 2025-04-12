@@ -121,6 +121,9 @@ fun MyCalgaryApp(
 
             // The start screen
             composable(route = MyCalgaryScreen.Start.name) {
+
+                Log.i("MyCalgaryScreen", "inside nav graph content of start screen.")
+
                 StartContentScreen(
                     options = DataSource.categoryItems,
                     onCancelButtonClicked = {
@@ -136,6 +139,9 @@ fun MyCalgaryApp(
 
             // The category screen
             composable(route = MyCalgaryScreen.Category.name) {
+
+                Log.i("MyCalgaryScreen", "inside nav graph content of category screen.")
+
                 CategoryContentScreen(
                     options = DataSource.getRecommendations(viewModel.getCategoryType()),
                     onCancelButtonClicked = {
@@ -167,6 +173,7 @@ fun MyCalgaryApp(
             composable(route = MyCalgaryScreen.Recommendation.name) {
 
                 Log.i("MyCalgaryScreen", "inside nav graph content of recommendation screen.")
+
                 RecommendationContentScreen(
                     contentUiState = uiState,
                     onCancelButtonClicked = {
