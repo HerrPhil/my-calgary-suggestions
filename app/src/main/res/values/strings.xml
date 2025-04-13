@@ -6,6 +6,8 @@
 
     <string name="my_recommendation_screen">My Recommendation Screen</string>
 
+    <string name="no_recommendation">There is no recommendation selected</string>
+
     <string name="back_button">Back Button</string>
     <!-- Here I have gathered string content for the My Calgary Suggestions -->
 

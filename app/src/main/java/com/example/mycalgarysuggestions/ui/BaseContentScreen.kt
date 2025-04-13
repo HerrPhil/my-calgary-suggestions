@@ -1,21 +1,33 @@
 package com.example.mycalgarysuggestions.ui
 
 import android.util.Log
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.mycalgarysuggestions.R
 import com.example.mycalgarysuggestions.model.ContentItem
@@ -31,26 +43,91 @@ fun BaseContentScreen(
 
     Log.i("BaseContentScreen", "TODO create base content screen")
 
-    // TODO For navigation test, cannot be empty to enable "Next" button
-    var selectedItemName by rememberSaveable { mutableStateOf("TEST VALUE") }
-//    var selectedItemName by rememberSaveable { mutableStateOf("") }
+    var selectedItemName by rememberSaveable { mutableStateOf("") }
 
-    Box(modifier = Modifier) {
-        Text(text = "TODO create base content screen")
+    Column(modifier = modifier) {
+        options.forEach { item ->
+
+            val currentItemName = stringResource(getNameResource(item))
+
+            val onClick = {
+                selectedItemName = currentItemName
+                onSelectionChanged(item)
+            }
+
+            MenuItemRow(
+                item = item,
+                selectedItemName = selectedItemName,
+                onClick = onClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = dimensionResource(R.dimen.padding_medium),
+                        start = dimensionResource(R.dimen.padding_medium),
+                        end = dimensionResource(R.dimen.padding_medium),
+                    )
+                    .selectable(
+                        selected = selectedItemName == currentItemName,
+                        onClick = onClick
+                    )
+            )
+        }
+        MenuScreenButtonGroup(
+            selectedItemName = selectedItemName,
+            onCancelButtonClicked = onCancelButtonClicked,
+            onNextButtonClicked = {
+                // Assert not null bc next button is not enabled unless selectedItem is not null.
+                onNextButtonClicked()
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_medium))
+        )
     }
+}
 
-    MenuScreenButtonGroup(
-        selectedItemName = selectedItemName,
-        onCancelButtonClicked = onCancelButtonClicked,
-        onNextButtonClicked = {
-            // Assert not null bc next button is not enabled unless selectedItem is not null.
-            onNextButtonClicked()
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(dimensionResource(R.dimen.padding_medium))
-    )
+@Composable
+fun MenuItemRow(
+    item: ContentItem,
+    selectedItemName: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        elevation = CardDefaults.cardElevation(),
+        modifier = modifier,
+        shape = RoundedCornerShape(dimensionResource(R.dimen.card_corner_radius))
+    ) {
+        Row(
+            modifier = Modifier,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
+            val currentItemIcon = getIconResource(item)
+
+            val currentItemName = stringResource(getNameResource(item))
+
+            Image(
+                painter = painterResource(currentItemIcon),
+                contentDescription = currentItemName,
+                modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_medium))
+            )
+
+            RadioButton(
+                selected = selectedItemName == currentItemName,
+                onClick = onClick
+            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
+            ) {
+                Text(
+                    text = currentItemName,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(end = dimensionResource(R.dimen.padding_medium))
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -60,6 +137,10 @@ fun MenuScreenButtonGroup(
     onNextButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+
+    var visible by remember { mutableStateOf(onCancelButtonClicked != null)}
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
@@ -79,5 +160,33 @@ fun MenuScreenButtonGroup(
             Text(stringResource(R.string.next).uppercase())
         }
     }
+}
+
+@StringRes
+private fun getNameResource(item: ContentItem): Int {
+    var nameResourceId = 0
+
+    if (item is ContentItem.CategoryItem) {
+        nameResourceId = item.categoryType.title
+    }
+    if (item is ContentItem.RecommendationItem) {
+        nameResourceId = item.nameResource
+    }
+
+    return nameResourceId
+}
+
+@DrawableRes
+private fun getIconResource(item: ContentItem): Int {
+    var iconResourceId = 0
+
+    if (item is ContentItem.CategoryItem) {
+        iconResourceId = item.categoryType.icon
+    }
+    if (item is ContentItem.RecommendationItem) {
+        iconResourceId = item.iconResource
+    }
+
+    return iconResourceId
 }
 

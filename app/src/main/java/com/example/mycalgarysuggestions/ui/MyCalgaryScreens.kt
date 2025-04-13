@@ -149,17 +149,6 @@ fun MyCalgaryApp(
                         navigateToStart(navController)
                     },
                     onNextButtonClicked = {
-
-
-                        // TODO for testing purposes
-                        Log.i("ContentViewModel", "get any recommendation to test navigation")
-                        viewModel.updateRecommendation(
-                            DataSource.getRecommendations(ContentItem.CategoryType.PubsAndCafes)[0]
-                        )
-
-
-
-
                         navController.navigate(MyCalgaryScreen.Recommendation.name)
                     },
                     onSelectionChanged = { viewModel.updateRecommendation(it) },
@@ -184,9 +173,11 @@ fun MyCalgaryApp(
                         viewModel.resetContent()
                         navigateToStart(navController)
                     },
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .verticalScroll(rememberScrollState())
+                    innerPadding
+//                    ,
+//                    modifier = Modifier
+//                        .fillMaxHeight()
+//                        .verticalScroll(rememberScrollState())
                 )
             }
 
@@ -202,44 +193,8 @@ private fun navigateToStart(navController: NavHostController) {
 
 @Composable
 fun MyTypographyCheck() {
+
     // look at all my typography options
-
-//    LazyColumn(
-//        modifier = Modifier,
-//        verticalArrangement = Arrangement.spacedBy(2.dp)
-//    ) {
-//
-//        item {
-//            Text(
-//                text = "display large is roboto mono bold size 57sp line height 64sp line spacing -0.2sp",
-//                style = MaterialTheme.typography.displayLarge
-//            )
-//            Spacer(modifier = Modifier.height(16.dp))
-//        }
-//
-//        item {
-//            Text(
-//                text = "display medium is roboto mono bold size 45sp line height 52sp line spacing 0sp",
-//                style = MaterialTheme.typography.displayMedium
-//            )
-//            Spacer(modifier = Modifier.height(16.dp))
-//        }
-//        item {
-//            Text(
-//                text = "display small is roboto mono bold size 36sp line height 44sp line spacing 0sp",
-//                style = MaterialTheme.typography.displayMedium
-//            )
-//            Spacer(modifier = Modifier.height(16.dp))
-//        }
-//        item {
-//            Text(
-//                text = "headline large is roboto mono bold size 32sp line height 40sp line spacing 0sp",
-//                style = MaterialTheme.typography.headlineLarge
-//            )
-//            Spacer(modifier = Modifier.height(16.dp))
-//        }
-//    }
-
 
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 

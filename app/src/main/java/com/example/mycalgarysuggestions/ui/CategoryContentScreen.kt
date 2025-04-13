@@ -42,7 +42,7 @@ fun CategoryContentScreenPreview() {
     MyCalgarySuggestionsTheme {
         Surface {
             CategoryContentScreen(
-                options = DataSource.getRecommendations(ContentItem.CategoryType.PubsAndCafes),
+                options = DataSource.getRecommendations(ContentItem.CategoryType.PhoRestaurants),
                 onCancelButtonClicked = {},
                 onNextButtonClicked = {},
                 onSelectionChanged = {},
