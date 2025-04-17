@@ -7,7 +7,6 @@ import com.example.mycalgarysuggestions.R
 sealed class ContentItem {
 
     enum class CategoryType(@StringRes val title: Int, @DrawableRes val icon: Int) {
-        NoCategory(title = R.string.default_category, icon = 0),
         PubsAndCafes(title = R.string.pubs_and_cafes, icon = R.drawable.pub),
         Dispensaries(title = R.string.dispensaries, icon = R.drawable.marijuana),
         CoffeeShops(title = R.string.coffee_shops, icon = R.drawable.coffee),

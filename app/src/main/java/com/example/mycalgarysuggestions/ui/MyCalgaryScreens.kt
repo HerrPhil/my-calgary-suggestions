@@ -1,5 +1,7 @@
 package com.example.mycalgarysuggestions.ui
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -25,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +41,8 @@ import com.example.mycalgarysuggestions.R
 import com.example.mycalgarysuggestions.datasource.DataSource
 import com.example.mycalgarysuggestions.model.ContentItem
 import com.example.mycalgarysuggestions.ui.theme.MyCalgarySuggestionsTheme
+import com.example.mycalgarysuggestions.utils.ContentSelection
+import com.example.mycalgarysuggestions.utils.SuggestionContentType
 
 enum class MyCalgaryScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),
@@ -74,8 +79,26 @@ fun MyCalgaryAppBar(
 
 @Composable
 fun MyCalgaryApp(
-    navController: NavHostController = rememberNavController(),
     windowSize: WindowWidthSizeClass,
+    modifier: Modifier = Modifier
+) {
+    val contentType: SuggestionContentType = when (windowSize) {
+        WindowWidthSizeClass.Compact -> SuggestionContentType.LIST_ONLY
+        WindowWidthSizeClass.Medium -> SuggestionContentType.LIST_ONLY
+        WindowWidthSizeClass.Expanded -> SuggestionContentType.LIST_AND_DETAIL
+        else -> SuggestionContentType.LIST_ONLY
+    }
+
+    if (contentType == SuggestionContentType.LIST_ONLY) {
+        MyCalgaryCompactScreen()
+    } else {
+        MyCalgaryExpandedScreen()
+    }
+}
+
+@Composable
+fun MyCalgaryCompactScreen(
+    navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
 
@@ -95,9 +118,6 @@ fun MyCalgaryApp(
     }
 
     Log.i("MyCalgaryApp", "selected title ${stringResource(titleResourceId)}")
-
-    // TODO adaptive layout based on window size
-    // TODO adaptive layout needs default category on start screen on first visit, to show recommendations.
 
     Scaffold(
         topBar = {
@@ -127,7 +147,7 @@ fun MyCalgaryApp(
                 StartContentScreen(
                     options = DataSource.categoryItems,
                     onCancelButtonClicked = {
-                        viewModel.resetContent()
+                        Log.i("StartContentScreen", "event of cancel button clicked")
                     },
                     onNextButtonClicked = { navController.navigate(MyCalgaryScreen.Category.name) },
                     onSelectionChanged = { viewModel.updateCategory(it) },
@@ -145,7 +165,7 @@ fun MyCalgaryApp(
                 CategoryContentScreen(
                     options = DataSource.getRecommendations(viewModel.getCategoryType()),
                     onCancelButtonClicked = {
-                        viewModel.resetContent()
+                        Log.i("CategoryContentScreen", "event of cancel button clicked")
                         navigateToStart(navController)
                     },
                     onNextButtonClicked = {
@@ -166,23 +186,115 @@ fun MyCalgaryApp(
                 RecommendationContentScreen(
                     contentUiState = uiState,
                     onCancelButtonClicked = {
-                        viewModel.resetContent()
+                        Log.i("RecommendationContentScreen", "event of cancel button clicked")
                         navigateToStart(navController)
                     },
                     onNextButtonClicked = {
-                        viewModel.resetContent()
+                        Log.i("RecommendationContentScreen", "event of cancel button clicked")
                         navigateToStart(navController)
                     },
                     innerPadding
-//                    ,
-//                    modifier = Modifier
-//                        .fillMaxHeight()
-//                        .verticalScroll(rememberScrollState())
                 )
             }
 
         }
 
+    }
+
+}
+
+// I am experimenting with the non-NavHostController state tracking for the expanded screen,
+// which has one Composable screen and receives different list data based on state of the
+// loaded list. We will see how this goes. Otherwise, I can define another nav-graph for
+// two expanded screens, one for category list and one for recommendation list.
+@SuppressLint("ContextCastToActivity")
+@Composable
+fun MyCalgaryExpandedScreen() {
+    Log.i(
+        "MyCalgaryExpandedScreen",
+        "TODO implement the adaptive layout with non-navHostController UI state, one screen"
+    )
+
+    // initialize the view model, as per usual.
+    // this also initializes the state, with its initial, default category,
+    // which is the first category in the category list (aka "Pubs and Cafes").
+    val viewModel: ContentViewModel = viewModel()
+
+    // fetch the UI state that triggers (re)composition.
+    val uiState by viewModel.uiState.collectAsState()
+
+    // get the current content selection
+    val expandedScreenCurrentContentSelection = viewModel.getCurrentContentSelection()
+
+    // I am predicting that the title logic will work the same. The list and detail screen
+    // delegates to the same base content screen for the list that only marks radio as "selected"
+    // after they are clicked, and not based on initial UI state of current list type.
+    @StringRes val titleResourceId = when (expandedScreenCurrentContentSelection) {
+        ContentSelection.NO_SELECTION -> MyCalgaryScreen.Start.title
+        ContentSelection.CATEGORY_SELECTION -> viewModel.getCategoryTitle()
+        ContentSelection.RECOMMENDATION_SELECTION -> viewModel.getRecommendationName()
+    }
+
+    val isUiShowingRecommendationList = uiState.isShowingRecommendationList
+
+    // By resetting content, on the navigate up action,
+    // the recommendation is cleared, the navigate to category list UI state flag is set,
+    // and current content selection is NO_SELECTION
+    Scaffold(
+        topBar = {
+            MyCalgaryAppBar(
+                currentTitle = titleResourceId,
+                canNavigateBack = isUiShowingRecommendationList,
+                navigateUp = { viewModel.resetContent() }
+            )
+        }
+    ) { innerPadding ->
+
+        // Decide what type of options to pass to the list and detail screen
+        val currentOptions = when (isUiShowingRecommendationList) {
+            true -> DataSource.getRecommendations(viewModel.getCategoryType())
+            false -> DataSource.categoryItems
+        }
+
+        // Decide what function data type that onSelectionChanged will be assigned
+        val selectionFunction: (ContentItem) -> Unit = when (isUiShowingRecommendationList) {
+            true -> { item: ContentItem ->
+                if (item is ContentItem.RecommendationItem) viewModel.updateRecommendation(item)
+                viewModel.updateSelectionToRecommendation()
+            }
+
+            false -> { item: ContentItem ->
+                if (item is ContentItem.CategoryItem) viewModel.updateCategory(item)
+                viewModel.updateSelectionToCategory()
+                viewModel.navigateToRecommendationList()
+            }
+        }
+
+        // Decide what function to support on Android system backpress
+        val activity = LocalContext.current as Activity
+
+        // By resetting, the recommendation is cleared, the navigate to category list UI state
+        // flag is set, and current content selection is NO_SELECTION
+        val onBackPressedFromShowingRecommendationList = {
+            viewModel.resetContent()
+        }
+
+        val onBackPressedFromShowingCategoryList = {
+            activity.finish()
+        }
+
+        val onBackPressedOfList = when (isUiShowingRecommendationList) {
+            true -> onBackPressedFromShowingRecommendationList
+            false -> onBackPressedFromShowingCategoryList
+        }
+
+        ListAndDetailContentScreen(
+            options = currentOptions,
+            contentUiState = uiState,
+            contentPadding = innerPadding,
+            onSelectionChanged = selectionFunction,
+            onBackPressed = onBackPressedOfList
+        )
     }
 
 }

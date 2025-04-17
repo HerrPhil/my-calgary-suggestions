@@ -1,7 +1,5 @@
 package com.example.mycalgarysuggestions.ui
 
-import android.health.connect.datatypes.ExerciseCompletionGoal.StepsGoal
-import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -23,8 +21,6 @@ fun StartContentScreen(
     onSelectionChanged: (ContentItem.CategoryItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    Log.i("StartContentScreen", "TODO delegate to base content screen")
 
     // Confident that CategoryItem extends ContentItem
     @Suppress("UNCHECKED_CAST")

@@ -1,6 +1,5 @@
 package com.example.mycalgarysuggestions.ui
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -21,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,10 +36,9 @@ fun BaseContentScreen(
     onCancelButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     onSelectionChanged: (ContentItem) -> Unit,
+    showNavigationButtons: Boolean = true,
     modifier: Modifier = Modifier
 ) {
-
-    Log.i("BaseContentScreen", "TODO create base content screen")
 
     var selectedItemName by rememberSaveable { mutableStateOf("") }
 
@@ -72,17 +69,20 @@ fun BaseContentScreen(
                     )
             )
         }
-        MenuScreenButtonGroup(
-            selectedItemName = selectedItemName,
-            onCancelButtonClicked = onCancelButtonClicked,
-            onNextButtonClicked = {
-                // Assert not null bc next button is not enabled unless selectedItem is not null.
-                onNextButtonClicked()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.padding_medium))
-        )
+
+        if (showNavigationButtons) {
+            MenuScreenButtonGroup(
+                selectedItemName = selectedItemName,
+                onCancelButtonClicked = onCancelButtonClicked,
+                onNextButtonClicked = {
+                    // Assert not null bc next button is not enabled unless selectedItem is not null.
+                    onNextButtonClicked()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_medium))
+            )
+        }
     }
 }
 
@@ -137,10 +137,6 @@ fun MenuScreenButtonGroup(
     onNextButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-
-    var visible by remember { mutableStateOf(onCancelButtonClicked != null)}
-
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))

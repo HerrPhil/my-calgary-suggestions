@@ -65,3 +65,27 @@ fun MyCalgaryAppCompactPreview() {
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun MyCalgaryAppMediumPreview() {
+    MyCalgarySuggestionsTheme {
+        Surface {
+            MyCalgaryApp(
+                windowSize = WindowWidthSizeClass.Medium
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MyCalgaryAppExpandedPreview() {
+    MyCalgarySuggestionsTheme {
+        Surface {
+            MyCalgaryApp(
+                windowSize = WindowWidthSizeClass.Expanded
+            )
+        }
+    }
+}

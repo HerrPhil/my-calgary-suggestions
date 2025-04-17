@@ -12,6 +12,8 @@ object DataSource {
         ContentItem.CategoryItem(ContentItem.CategoryType.PhoRestaurants),
     )
 
+    val defaultCategory = categoryItems[0]
+
     private val pubAndCafeItems = listOf(
         ContentItem.RecommendationItem(
             nameResource = R.string.courtyard_name,
@@ -247,7 +249,6 @@ object DataSource {
             ContentItem.CategoryType.Dispensaries -> dispensaryItems
             ContentItem.CategoryType.CoffeeShops -> coffeeShopItems
             ContentItem.CategoryType.PhoRestaurants -> phoRestaurantItems
-            ContentItem.CategoryType.NoCategory -> listOf()
         }
     }
 

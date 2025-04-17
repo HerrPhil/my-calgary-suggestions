@@ -46,6 +46,7 @@ fun RecommendationContentScreen(
     onCancelButtonClicked: () -> Unit,
     onNextButtonClicked: () -> Unit,
     contentPadding: PaddingValues,
+    showNavigationButtons: Boolean = true,
     modifier: Modifier = Modifier
 ) {
 
@@ -55,40 +56,50 @@ fun RecommendationContentScreen(
     val layoutDirection = LocalLayoutDirection.current
     val recommendationItem = contentUiState.recommendation
 
-    Box(
-        modifier = modifier
-            .verticalScroll(state = scrollState)
-            .padding(top = contentPadding.calculateTopPadding())
-    ) {
 
-        Column(
-            modifier = Modifier
-                .padding(
-                    bottom = contentPadding.calculateTopPadding(),
-                    start = contentPadding.calculateStartPadding(layoutDirection),
-                    end = contentPadding.calculateEndPadding(layoutDirection)
-                )
+    // This works since the compact screen guarantees a recommendation item is selected
+    // before the "Next" button can be clicked on the categories screen.
+    // Therefore the "not selected" case is unreachable by the compact screen.
+    // The expanded screen can have no recommendation and does not need navigation buttons
+    // when the recommendation item is "not selected".
+    if (recommendationItem == null) { // for expanded screen "not selected" case
+
+        // nested in the column
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(top = contentPadding.calculateTopPadding())
+                .background(color = MaterialTheme.colorScheme.tertiary)
         ) {
 
-            if (recommendationItem == null) {
+            Text(
+                text = stringResource(R.string.no_recommendation),
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onTertiary,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(Alignment.Center)
+            )
 
-                // nested in the column
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = MaterialTheme.colorScheme.onErrorContainer)
-                ) {
+        }
 
-                    Text(
-                        text = stringResource(R.string.no_recommendation),
-                        style = MaterialTheme.typography.headlineLarge,
-                        color = MaterialTheme.colorScheme.onError,
-                        textAlign = TextAlign.Center
+    } else { // for expanded and compact screen "selected" case
+
+        Box(
+            modifier = modifier
+                .verticalScroll(state = scrollState)
+                .padding(top = contentPadding.calculateTopPadding())
+        ) { // Box with scrolling start
+
+            Column(
+                modifier = Modifier
+                    .padding(
+                        bottom = contentPadding.calculateTopPadding(),
+                        start = contentPadding.calculateStartPadding(layoutDirection),
+                        end = contentPadding.calculateEndPadding(layoutDirection)
                     )
+            ) {
 
-                }
-
-            } else {
 
                 // nested in the column
                 Box(
@@ -161,28 +172,37 @@ fun RecommendationContentScreen(
                     )
                 )
 
-            }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(dimensionResource(R.dimen.padding_medium)),
-                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
-            ) {
-                OutlinedButton(modifier = Modifier.weight(1f), onClick = onCancelButtonClicked) {
-                    Text(stringResource(R.string.cancel).uppercase())
+
+                if (showNavigationButtons) {
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(dimensionResource(R.dimen.padding_medium)),
+                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
+                    ) {
+                        OutlinedButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = onCancelButtonClicked
+                        ) {
+                            Text(stringResource(R.string.cancel).uppercase())
+                        }
+                        Button(
+                            modifier = Modifier.weight(1f),
+                            onClick = onNextButtonClicked
+                        ) {
+                            Text(stringResource(R.string.submit).uppercase())
+                        }
+                    }
+
                 }
-                Button(
-                    modifier = Modifier.weight(1f),
-                    onClick = onNextButtonClicked
-                ) {
-                    Text(stringResource(R.string.submit).uppercase())
-                }
-            }
 
-        } // end Column
+            } // end Column
 
-    }
+        } // Box with scrolling end
+
+    } // refactor
 
 }
 
@@ -194,10 +214,10 @@ fun RecommendationContentScreenPreview() {
             RecommendationContentScreen(
                 contentUiState = ContentUiState(
                     recommendation = ContentItem.RecommendationItem(
-                        nameResource = R.string.bagolac_name,
-                        ratingResource = R.string.bagolac_rating,
-                        descriptionResource = R.string.bagolac_description,
-                        addressResource = R.string.bagolac_address,
+                        nameResource = R.string.analog_name,
+                        ratingResource = R.string.analog_rating,
+                        descriptionResource = R.string.analog_description,
+                        addressResource = R.string.analog_address,
                         logoResource = R.drawable.analog_coffee_logo
                     )
                 ),
